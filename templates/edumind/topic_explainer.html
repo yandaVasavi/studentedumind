@@ -1,0 +1,78 @@
+
+{% extends 'edumind/base.html' %}
+
+{% block title %}AI Topic Explainer | EduMind{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>AI Topic Explainer 📚</h1>
+
+    <p>Enter any computer science topic and let EduMind explain it in simple English.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="topic">Enter Topic</label>
+
+        <input
+            type="text"
+            id="topic"
+            name="topic"
+            placeholder="Example: Python, DBMS, Operating System..."
+            value="{{ selected_topic }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="level">Select Learning Level</label>
+
+        <select id="level" name="level" required>
+
+            <option value="">Choose Level</option>
+
+            <option value="Beginner" {% if selected_level == "Beginner" %}selected{% endif %}>
+                Beginner
+            </option>
+
+            <option value="Intermediate" {% if selected_level == "Intermediate" %}selected{% endif %}>
+                Intermediate
+            </option>
+
+            <option value="Advanced" {% if selected_level == "Advanced" %}selected{% endif %}>
+                Advanced
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">Explain Topic with AI</button>
+
+    </form>
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    {% if ai_response %}
+
+        <hr>
+
+        <h2>AI Explanation</h2>
+
+        <div class="question-card">
+            {{ ai_response|linebreaks }}
+        </div>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+
+{% extends 'edumind/base.html' %}
+
+{% block title %}Dashboard | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <!-- Welcome Section -->
+    <div class="dashboard-welcome">
+        <h1>Welcome, {{ user.first_name }}! 👋</h1>
+        <p>Ready to continue your learning journey?</p>
+    </div>
+
+    <!-- Dashboard Statistics -->
+    <div class="dashboard-stats">
+
+        <div class="stat-card">
+            <h3>Study Sessions</h3>
+            <p>{{ profile.study_sessions }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Completed Quizzes</h3>
+            <p>{{ profile.completed_quizzes }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Current Streak</h3>
+            <p>{{ profile.current_streak }} days 🔥</p>
+        </div>
+
+    </div>
+
+    <!-- Learning Features -->
+    <div class="dashboard-features">
+
+        <h2>Your Learning Tools</h2>
+
+        <div class="feature-grid">
+
+            <!-- AI Topic Explainer -->
+            <div class="feature-card">
+                <h3>📚 Topic Explainer</h3>
+                <p>Understand difficult topics with simple AI explanations and examples.</p>
+
+                <a href="{% url 'topic_explainer' %}" class="btn btn-primary">
+                    Explore Topics
+                </a>
+            </div>
+
+            <!-- Interview Preparation -->
+            <div class="feature-card">
+                <h3>💼 Interview Preparation</h3>
+                <p>Practice AI-generated technical interview questions and answers.</p>
+
+                <a href="{% url 'interview_prep' %}" class="btn btn-primary">
+                    Start Preparation
+                </a>
+            </div>
+
+            <!-- MCQ Quiz -->
+            <div class="feature-card">
+                <h3>📝 MCQ Quiz</h3>
+                <p>Test your knowledge with AI-generated practice quizzes.</p>
+
+                <button class="btn btn-primary" disabled>
+                    Coming Soon
+                </button>
+            </div>
+
+            <!-- AI Chat -->
+            <div class="feature-card">
+                <h3>🤖 AI Chat</h3>
+                <p>Ask questions and learn programming concepts with your AI companion.</p>
+
+                <button class="btn btn-primary" disabled>
+                    Coming Soon
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Logout -->
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-primary">
+            Logout
+        </button>
+    </form>
+
+</section>
+
+{% endblock %}

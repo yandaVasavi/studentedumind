@@ -1,0 +1,98 @@
+
+{% extends 'edumind/base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Interview Preparation</h1>
+
+    <p>Practice AI-generated technical interview questions based on your selected subject.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Select Subject</label>
+        <select name="subject" required>
+            <option value="">Choose Subject</option>
+
+            <option value="Python" {% if selected_subject == "Python" %}selected{% endif %}>
+                Python
+            </option>
+
+            <option value="Java" {% if selected_subject == "Java" %}selected{% endif %}>
+                Java
+            </option>
+
+            <option value="SQL" {% if selected_subject == "SQL" %}selected{% endif %}>
+                SQL
+            </option>
+        </select>
+
+        <br><br>
+
+        <label>Select Job Role</label>
+        <select name="role" required>
+            <option value="">Choose Role</option>
+
+            <option value="Software Developer" {% if selected_role == "Software Developer" %}selected{% endif %}>
+                Software Developer
+            </option>
+
+            <option value="Backend Developer" {% if selected_role == "Backend Developer" %}selected{% endif %}>
+                Backend Developer
+            </option>
+
+            <option value="Database Developer" {% if selected_role == "Database Developer" %}selected{% endif %}>
+                Database Developer
+            </option>
+        </select>
+
+        <br><br>
+
+        <label>Select Difficulty</label>
+        <select name="difficulty" required>
+            <option value="">Choose Difficulty</option>
+
+            <option value="Beginner" {% if selected_difficulty == "Beginner" %}selected{% endif %}>
+                Beginner
+            </option>
+
+            <option value="Intermediate" {% if selected_difficulty == "Intermediate" %}selected{% endif %}>
+                Intermediate
+            </option>
+
+            <option value="Advanced" {% if selected_difficulty == "Advanced" %}selected{% endif %}>
+                Advanced
+            </option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Generate Questions</button>
+
+    </form>
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    {% if ai_response %}
+
+        <hr>
+
+        <h2>AI-Generated Interview Questions</h2>
+
+        <div class="question-card">
+            {{ ai_response|linebreaks }}
+        </div>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
+</div>
+
+{% endblock %}

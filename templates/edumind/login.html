@@ -1,0 +1,50 @@
+
+{% extends 'edumind/base.html' %}
+
+{% block title %}Login | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+    <div class="auth-card">
+
+        <h1>Welcome Back!</h1>
+        <p>Login to continue your learning journey.</p>
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"
+                       placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"
+                       placeholder="Enter your password" required>
+            </div>
+
+            <div class="form-group remember-group">
+                <label>
+                    <input type="checkbox" name="remember_me">
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary auth-button">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-footer">
+            Don't have an account?
+            <a href="{% url 'register' %}">Create an account</a>
+        </p>
+
+    </div>
+</section>
+
+{% endblock %}
